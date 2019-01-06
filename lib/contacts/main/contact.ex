@@ -1,6 +1,8 @@
-defmodule Contacts.Contact do
+defmodule Contacts.Main.Contact do
   use Ecto.Schema
   import Ecto.Changeset
+
+  @derive {Jason.Encoder, except: [:__meta__, :inserted_at, :updated_at]}
 
   @genders [
     {0, :male},

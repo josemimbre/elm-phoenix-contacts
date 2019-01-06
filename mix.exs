@@ -44,8 +44,7 @@ defmodule Contacts.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:scrivener_ecto, "~> 2.0"},
-      {:faker, git: "https://github.com/bigardone/faker", branch: "master"},
-      {:timex, "~> 3.4"}
+      {:faker, "~> 0.11.2"}
     ]
   end
 

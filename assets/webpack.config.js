@@ -4,6 +4,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const stylus_plugin = require('nib');
 
 module.exports = (env, options) => ({
   optimization: {
@@ -40,11 +41,24 @@ module.exports = (env, options) => ({
           debug: true,
           cwd: path.resolve(__dirname, "elm")
         }
+      },
+      {
+        test: /\.styl$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'stylus-loader',
+            options: {
+              use: [stylus_plugin()],
+            },
+          },
+        ],
       }
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin({ filename: '../css/app.css' }),
+    //new MiniCssExtractPlugin({ filename: '../css/app.css' }),
     new CopyWebpackPlugin([{ from: 'static/', to: '../' }])
   ]
 });
