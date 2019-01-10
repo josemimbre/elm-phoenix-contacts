@@ -1,8 +1,12 @@
 defmodule ContactsWeb.Api.V1.ContactController do
   use ContactsWeb, :controller
 
+  alias Contacts.Main
+
   def index(conn, params) do
-    contacts = Contacts.Main.list_contacts_page(:first_name, page: params["page"])
+    page = params["page"]
+    search = Map.get(params, "search", "")
+    contacts = Main.list_contacts_page(%{page: page}, search)
 
     render(conn, "index.json",
       contacts: contacts.entries,

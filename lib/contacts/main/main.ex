@@ -31,11 +31,13 @@ defmodule Contacts.Main do
       [%Contact{}, ...]
 
   """
-  def list_contacts_page(order_param \\ :first_name, paginate_params) do
-    IO.inspect(paginate_params)
-
+  def list_contacts_page(
+        %{page: _page} = paginate_params,
+        search_query
+      ) do
     Contact
-    |> order_by(asc: ^order_param)
+    |> search_contact(search_query)
+    |> order_by(:first_name)
     |> Repo.paginate(paginate_params)
   end
 
@@ -55,5 +57,30 @@ defmodule Contacts.Main do
     %Contact{}
     |> Contact.changeset(attrs)
     |> Repo.insert()
+  end
+
+  defp search_contact(query, ""), do: query
+
+  defp search_contact(query, search_query) do
+    search_query = format_contact_query(search_query)
+
+    query
+    |> where(
+      fragment(
+        """
+        MATCH (first_name, last_name, location, headline, email, phone_number)
+        AGAINST (? IN NATURAL LANGUAGE MODE)
+        """,
+        ^search_query
+      )
+    )
+  end
+
+  defp format_contact_query(search_query) do
+    search_query
+    |> String.trim()
+    |> String.split(" ")
+    |> Enum.map(&"+#{&1}")
+    |> Enum.join(" ")
   end
 end

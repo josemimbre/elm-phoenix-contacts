@@ -1,5 +1,6 @@
 module Update exposing (update)
 
+import Commands exposing (fetch)
 import Messages exposing (..)
 import Model exposing (..)
 
@@ -14,3 +15,12 @@ update msg model =
 
                 Err error ->
                     ( { model | error = Just "Something went wrong..." }, Cmd.none )
+
+        Paginate pageNumber ->
+            ( model, fetch pageNumber model.search )
+
+        HandleSearchInput value ->
+            ( { model | search = value }, Cmd.none )
+
+        HandleFormSubmit ->
+            ( model, fetch 1 model.search )
