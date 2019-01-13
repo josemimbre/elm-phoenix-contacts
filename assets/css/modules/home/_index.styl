@@ -49,6 +49,7 @@
             color: $gray
           &:-ms-input-placeholder
             color: $gray
+
   .relative
     position: relative
 
@@ -67,3 +68,7 @@
     &:hover
       background: $base-font-color
       color: $base-background-color
+
+input[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}

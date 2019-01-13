@@ -11,10 +11,10 @@ update msg model =
         FetchResult result ->
             case result of
                 Ok response ->
-                    ( { model | contactList = response }, Cmd.none )
+                    ( { model | contactList = Success response }, Cmd.none )
 
                 Err error ->
-                    ( { model | error = Just "Something went wrong..." }, Cmd.none )
+                    ( { model | contactList = Failure "Something went wrong..." }, Cmd.none )
 
         Paginate pageNumber ->
             ( model, fetch pageNumber model.search )
@@ -23,4 +23,7 @@ update msg model =
             ( { model | search = value }, Cmd.none )
 
         HandleFormSubmit ->
-            ( model, fetch 1 model.search )
+            ( { model | contactList = Requesting }, fetch 1 model.search )
+
+        ResetSearch ->
+            ( { model | search = "" }, fetch 1 "" )
