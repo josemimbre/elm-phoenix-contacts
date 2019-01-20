@@ -23,6 +23,22 @@ defmodule Contacts.Main do
   end
 
   @doc """
+  Gets a single contact.
+
+  Raises `Ecto.NoResultsError` if the Contact does not exist.
+
+  ## Examples
+
+      iex> get_contact!(123)
+      %Contact{}
+
+      iex> get_contact!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_contact!(id), do: Repo.get!(Contact, id)
+
+  @doc """
   Returns the list of contacts sorted.
 
   ## Examples

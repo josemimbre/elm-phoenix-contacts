@@ -16,4 +16,6 @@ defmodule ContactsWeb.Api.V1.ContactView do
       total_pages: total_pages
     }
   end
+
+  def render("show.json", %{contact: contact}), do: contact
 end

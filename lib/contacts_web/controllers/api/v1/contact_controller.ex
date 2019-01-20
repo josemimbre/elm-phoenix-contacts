@@ -16,4 +16,10 @@ defmodule ContactsWeb.Api.V1.ContactController do
       total_entries: contacts.total_entries
     )
   end
+
+  def show(conn, %{"id" => id}) do
+    contact = Main.get_contact!(id)
+
+    render(conn, contact: contact)
+  end
 end
