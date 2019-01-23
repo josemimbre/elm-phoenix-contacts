@@ -3,6 +3,7 @@ module Skeleton exposing
     , Segment(..)
     , Warning(..)
     , view
+    , warningMessage
     )
 
 import Browser exposing (..)
@@ -43,7 +44,37 @@ view toMsg details =
     { title =
         details.title
     , body =
-        [ Html.map toMsg <|
-            div (class "center" :: details.attrs) details.kids
+        [ main_ [ attribute "role" "main", class "container" ]
+            [ section
+                []
+                [ viewHeader
+                , Html.map toMsg <|
+                    div (class "center" :: details.attrs) details.kids
+                ]
+            ]
         ]
     }
+
+
+viewHeader : Html msg
+viewHeader =
+    header
+        [ class "main-header" ]
+        [ h1
+            []
+            [ text "Phoenix and Elm: A real use case" ]
+        ]
+
+
+warningMessage : String -> String -> Html msg -> Html msg
+warningMessage iconClasses message content =
+    div
+        [ class "warning" ]
+        [ span
+            [ class "fa-stack" ]
+            [ i [ class iconClasses ] [] ]
+        , h4
+            []
+            [ text message ]
+        , content
+        ]

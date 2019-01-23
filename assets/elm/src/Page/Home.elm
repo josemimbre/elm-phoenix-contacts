@@ -87,26 +87,10 @@ view model =
     , warning = Skeleton.NoProblems
     , attrs = []
     , kids =
-        [ main_ [ attribute "role" "main", class "container" ]
-            [ section
-                []
-                [ headerView
-                , div []
-                    [ indexView model ]
-                ]
-            ]
+        [ div []
+            [ indexView model ]
         ]
     }
-
-
-headerView : Html Msg
-headerView =
-    header
-        [ class "main-header" ]
-        [ h1
-            []
-            [ text "Phoenix and Elm: A real use case" ]
-        ]
 
 
 indexView : Model -> Html Msg

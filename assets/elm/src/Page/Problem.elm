@@ -4,9 +4,12 @@ module Page.Problem exposing
     , styles
     )
 
+import Browser.Navigation as Nav
 import Elm.Version as V
 import Html exposing (..)
 import Html.Attributes exposing (..)
+import Html.Events exposing (..)
+import Skeleton exposing (..)
 
 
 
@@ -15,9 +18,18 @@ import Html.Attributes exposing (..)
 
 notFound : List (Html msg)
 notFound =
-    [ div [ style "font-size" "12em" ] [ text "404" ]
-    , div [ style "font-size" "3em" ] [ text "I cannot find this page!" ]
+    [ Skeleton.warningMessage
+        "fa fa-meh-o fa-stack-2x"
+        "Page not found"
+        backToHomeLink
     ]
+
+
+backToHomeLink : Html msg
+backToHomeLink =
+    a
+        [ href "/" ]
+        [ text "← Back to Home" ]
 
 
 styles : List (Attribute msg)

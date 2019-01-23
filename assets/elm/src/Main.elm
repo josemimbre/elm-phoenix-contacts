@@ -56,10 +56,19 @@ update message model =
                     ( model, Cmd.none )
 
         LinkClicked urlRequest ->
-            ( model, Cmd.none )
+            case urlRequest of
+                Browser.Internal url ->
+                    ( model
+                    , Nav.pushUrl model.key (Url.toString url)
+                    )
+
+                Browser.External href ->
+                    ( model
+                    , Nav.load href
+                    )
 
         UrlChanged url ->
-            ( model, Cmd.none )
+            stepUrl url model
 
 
 stepHome : Model -> ( Home.Model, Cmd Home.Msg ) -> ( Model, Cmd Msg )
@@ -87,11 +96,6 @@ view model =
 
         Home home ->
             Skeleton.view HomeMsg (Home.view home)
-
-
-notFoundView : Html msg
-notFoundView =
-    text "Route not found"
 
 
 
