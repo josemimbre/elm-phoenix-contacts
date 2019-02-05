@@ -7,6 +7,7 @@ module Page.Home exposing
     )
 
 import Browser
+import Contact exposing (..)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
@@ -39,20 +40,6 @@ type alias ContactList =
     , page_number : Int
     , total_entries : Int
     , total_pages : Int
-    }
-
-
-type alias Contact =
-    { id : Int
-    , first_name : String
-    , last_name : String
-    , gender : Int
-    , birth_date : String
-    , location : String
-    , phone_number : String
-    , email : String
-    , headline : String
-    , picture : String
     }
 
 
@@ -268,8 +255,10 @@ contactView model =
             model.first_name ++ " " ++ model.last_name
     in
     ( String.fromInt model.id
-    , div
-        [ classes ]
+    , a
+        [ href <| "/contacts/" ++ String.fromInt model.id
+        , classes
+        ]
         [ div
             [ class "inner" ]
             [ header
@@ -374,23 +363,7 @@ contactListDecoder : JD.Decoder ContactList
 contactListDecoder =
     succeed
         ContactList
-        |> required "entries" (JD.list contactDecoder)
+        |> required "entries" (JD.list Contact.decoder)
         |> required "page_number" int
         |> required "total_entries" int
         |> required "total_pages" int
-
-
-contactDecoder : JD.Decoder Contact
-contactDecoder =
-    succeed
-        Contact
-        |> required "id" int
-        |> required "first_name" string
-        |> required "last_name" string
-        |> required "gender" int
-        |> required "birth_date" string
-        |> required "location" string
-        |> required "phone_number" string
-        |> required "email" string
-        |> required "headline" string
-        |> required "picture" string
