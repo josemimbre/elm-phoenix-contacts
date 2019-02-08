@@ -55,9 +55,20 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("topic:subtopic", {})
+let channel = socket.channel("contacts", {})
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
+
+channel.push("contacts:fetch", {page: "1"})
+  .receive("ok", (msg) => console.log("created message", msg) )
+  .receive("error", (reasons) => console.log("create failed", reasons) )
+  .receive("timeout", () => console.log("Networking issue...") )
+
+channel.push("contact:1")
+  .receive("ok", (msg) => console.log("created message", msg) )
+  .receive("error", (reasons) => console.log("create failed", reasons) )
+  .receive("timeout", () => console.log("Networking issue...") )
+
 
 export default socket
