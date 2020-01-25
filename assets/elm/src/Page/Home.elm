@@ -363,7 +363,7 @@ contactListDecoder : JD.Decoder ContactList
 contactListDecoder =
     succeed
         ContactList
-        |> required "entries" (JD.list Contact.decoder)
-        |> required "page_number" int
-        |> required "total_entries" int
-        |> required "total_pages" int
+        |> Json.Decode.Pipeline.required "entries" (JD.list Contact.decoder)
+        |> Json.Decode.Pipeline.required "page_number" int
+        |> Json.Decode.Pipeline.required "total_entries" int
+        |> Json.Decode.Pipeline.required "total_pages" int

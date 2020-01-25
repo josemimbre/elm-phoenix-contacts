@@ -131,7 +131,7 @@ stepUrl url model =
         parser =
             oneOf
                 [ route top (stepHome model Home.init)
-                , route (s "contacts" </> contact_)
+                , route (Parser.s "contacts" </> contact_)
                     (\contact ->
                         stepContact model (Contact.init contact)
                     )
