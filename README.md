@@ -1,3 +1,4 @@
+![](https://github.com/josemimbre/elm-phoenix-contacts/workflows/Elixir%20CI/badge.svg)
 # Contacts
 
 To start your Phoenix server:
