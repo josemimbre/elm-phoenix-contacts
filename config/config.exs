@@ -15,7 +15,7 @@ config :contacts, ContactsWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "WcMpq2gL0c9r1UJhZ4eg2pEgWJXz/k/YryZnPTZ4uhpHm/sqUo6HRWVDJl3nJKXh",
   render_errors: [view: ContactsWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Contacts.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub_server: Contacts.PubSub
 
 # Configures Elixir's Logger
 config :logger, :console,

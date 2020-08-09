@@ -1,6 +1,15 @@
 defmodule ContactsWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :contacts
 
+  # The session will be stored in the cookie and signed,
+  # this means its contents can be read but not tampered with.
+  # Set :encryption_salt if you would also like to encrypt it.
+  @session_options [
+    store: :cookie,
+    key: "_contacts_key",
+    signing_salt: "4meqNiGJ"
+  ]
+
   socket "/socket", ContactsWeb.UserSocket,
     websocket: true,
     longpoll: false
@@ -33,14 +42,6 @@ defmodule ContactsWeb.Endpoint do
 
   plug Plug.MethodOverride
   plug Plug.Head
-
-  # The session will be stored in the cookie and signed,
-  # this means its contents can be read but not tampered with.
-  # Set :encryption_salt if you would also like to encrypt it.
-  plug Plug.Session,
-    store: :cookie,
-    key: "_contacts_key",
-    signing_salt: "4meqNiGJ"
-
+  plug Plug.Session, @session_options
   plug ContactsWeb.Router
 end

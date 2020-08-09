@@ -10,6 +10,8 @@ defmodule Contacts.Application do
     children = [
       # Start the Ecto repository
       Contacts.Repo,
+      # Start the PubSub system
+      {Phoenix.PubSub, name: Contacts.PubSub},
       # Start the endpoint when the application starts
       ContactsWeb.Endpoint
       # Starts a worker by calling: Contacts.Worker.start_link(arg)
