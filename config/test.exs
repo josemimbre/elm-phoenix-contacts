@@ -14,5 +14,5 @@ config :contacts, Contacts.Repo,
   username: "root",
   password: "my-secret-pw",
   database: "contacts_dev",
-  hostname: "localhost",
+  hostname: "database",
   pool: Ecto.Adapters.SQL.Sandbox
