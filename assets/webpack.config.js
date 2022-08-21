@@ -2,7 +2,7 @@ const path = require('path');
 const glob = require('glob');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const stylus_plugin = require('nib');
 
@@ -10,7 +10,7 @@ module.exports = (env, options) => ({
   optimization: {
     minimizer: [
       new TerserPlugin({ cache: true, parallel: true, sourceMap: false }),
-      new OptimizeCSSAssetsPlugin({})
+      new CssMinimizerPlugin({})
     ]
   },
   entry: {
@@ -36,11 +36,13 @@ module.exports = (env, options) => ({
       {
         test: /\.elm$/,
         exclude: ["/elm-stuff/", "/node_modules"],
-        loader: "elm-webpack-loader",
-        options: {
-          debug: true,
-          cwd: path.resolve(__dirname, "elm")
-        }
+        use: {
+          loader: 'elm-webpack-loader',
+          options: {
+            debug: true,
+            cwd: path.resolve(__dirname, "elm")
+          }
+        },
       },
       {
         test: /\.styl$/,
