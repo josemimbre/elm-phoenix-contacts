@@ -4,7 +4,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const stylus_plugin = require('nib');
 
 module.exports = (env, options) => ({
   optimization: {
@@ -47,12 +46,18 @@ module.exports = (env, options) => ({
       {
         test: /\.styl$/,
         use: [
-          'style-loader',
-          'css-loader',
+          {
+            loader: 'style-loader',
+          },
+          {
+            loader: 'css-loader',
+          },
           {
             loader: 'stylus-loader',
             options: {
-              use: [stylus_plugin()],
+              stylusOptions: {
+                use: ["nib"],
+              }
             },
           },
         ],
@@ -65,6 +70,7 @@ module.exports = (env, options) => ({
       patterns: [
         { from: 'static/', to: '../' }
       ],
-    })
+    }),
+    new MiniCssExtractPlugin()
   ]
 });
