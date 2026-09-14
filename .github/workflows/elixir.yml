@@ -16,10 +16,15 @@ jobs:
           MYSQL_ROOT_PASSWORD: my-secret-pw
     steps:
     - uses: actions/checkout@v7
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '26'
     - name: Install Dependencies
       run: |
         mix local.rebar --force
         mix local.hex --force
         mix deps.get
+        mix assets.setup
+        mix assets.build
     - name: Run Tests
       run: mix test
