@@ -10,15 +10,19 @@ import Config
 config :contacts,
   ecto_repos: [Contacts.Repo]
 
-# Configures the endpoint
+# Configure the endpoint
 config :contacts, ContactsWeb.Endpoint,
+  adapter: Bandit.PhoenixAdapter,
   url: [host: "localhost"],
   secret_key_base: "WcMpq2gL0c9r1UJhZ4eg2pEgWJXz/k/YryZnPTZ4uhpHm/sqUo6HRWVDJl3nJKXh",
-  render_errors: [view: ContactsWeb.ErrorView, accepts: ~w(html json)],
+  render_errors: [
+    formats: [html: ContactsWeb.ErrorHTML, json: ContactsWeb.ErrorJSON],
+    layout: false
+  ],
   pubsub_server: Contacts.PubSub
 
-# Configures Elixir's Logger
-config :logger, :console,
+# Configure Elixir's Logger
+config :logger, :default_formatter,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 

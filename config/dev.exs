@@ -7,7 +7,7 @@ import Config
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
 config :contacts, ContactsWeb.Endpoint,
-  http: [port: 4000],
+  http: [ip: {127, 0, 0, 1}],
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
@@ -57,7 +57,7 @@ config :contacts, ContactsWeb.Endpoint,
   ]
 
 # Do not include metadata nor timestamps in development logs
-config :logger, :console, format: "[$level] $message\n"
+config :logger, :default_formatter, format: "[$level] $message\n"
 
 # Set a higher stacktrace during development. Avoid configuring such
 # in production as building large stacktraces may be expensive.

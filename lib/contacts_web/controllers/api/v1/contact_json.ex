@@ -1,6 +1,4 @@
-defmodule ContactsWeb.Api.V1.ContactView do
-  use ContactsWeb, :view
-
+defmodule ContactsWeb.Api.V1.ContactJSON do
   def render("index.json", %{
         contacts: contacts,
         page_number: page_number,

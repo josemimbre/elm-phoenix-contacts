@@ -46,7 +46,7 @@ initialModel =
 fetch : Int -> String -> Cmd Msg
 fetch page search =
     Http.get
-        { url = "http://localhost:4000/api/v1/contacts/" ++ String.fromInt page
+        { url = "/api/v1/contacts/" ++ String.fromInt page
         , expect = Http.expectJson FetchResult Contact.decoder
         }
 

@@ -6,7 +6,7 @@ defmodule ContactsWeb do
   This can be used in your application as:
 
       use ContactsWeb, :controller
-      use ContactsWeb, :view
+      use ContactsWeb, :html
 
   The definitions below will be executed for every view,
   controller, etc, so keep them short and clean, focused
@@ -19,7 +19,7 @@ defmodule ContactsWeb do
 
   def controller do
     quote do
-      use Phoenix.Controller, namespace: ContactsWeb
+      use Phoenix.Controller, formats: [html: "HTML", json: "JSON"]
 
       import Plug.Conn
       import ContactsWeb.Gettext
@@ -27,18 +27,14 @@ defmodule ContactsWeb do
     end
   end
 
-  def view do
+  def html do
     quote do
-      use Phoenix.View,
-        root: "lib/contacts_web/templates",
-        namespace: ContactsWeb
+      use Phoenix.Component
 
-      # Import convenience functions from controllers
       import Phoenix.Controller,
-        only: [get_flash: 1, get_flash: 2, view_module: 1, view_template: 1]
+        only: [get_csrf_token: 0, view_module: 1, view_template: 1]
 
-      # Include shared imports and aliases for views
-      unquote(view_helpers())
+      unquote(html_helpers())
     end
   end
 
@@ -57,16 +53,11 @@ defmodule ContactsWeb do
     end
   end
 
-  defp view_helpers do
+  defp html_helpers do
     quote do
-      # Use all HTML functionality (forms, tags, etc)
-      use Phoenix.HTML
-
-      # Import basic rendering functionality (render, render_layout, etc)
-      import Phoenix.View
-
-      import ContactsWeb.ErrorHelpers
+      import Phoenix.HTML
       import ContactsWeb.Gettext
+      alias ContactsWeb.Layouts
       alias ContactsWeb.Router.Helpers, as: Routes
     end
   end
