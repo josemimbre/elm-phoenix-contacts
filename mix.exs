@@ -57,7 +57,7 @@ defmodule Contacts.MixProject do
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
       {:phoenix_live_dashboard, "~> 0.9.1"},
-      {:scrivener_ecto, "~> 2.0"},
+      {:scrivener_ecto, "~> 3.1"},
       {:faker, "~> 0.11.2"}
     ]
   end
