@@ -19,7 +19,8 @@ config :contacts, ContactsWeb.Endpoint,
     formats: [html: ContactsWeb.ErrorHTML, json: ContactsWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: Contacts.PubSub
+  pubsub_server: Contacts.PubSub,
+  live_view: [signing_salt: "PbxdlZWB"]
 
 # Configure Elixir's Logger
 config :logger, :default_formatter,

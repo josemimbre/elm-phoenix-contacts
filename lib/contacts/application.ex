@@ -9,14 +9,15 @@ defmodule Contacts.Application do
   def start(_type, _args) do
     # List all child processes to be supervised
     children = [
-      # Start the Ecto repository
+      ContactsWeb.Telemetry,
       Contacts.Repo,
+      {DNSCluster, query: Application.get_env(:contacts, :dns_cluster_query) || :ignore},
       # Start the PubSub system
       {Phoenix.PubSub, name: Contacts.PubSub},
-      # Start the endpoint when the application starts
-      ContactsWeb.Endpoint
       # Starts a worker by calling: Contacts.Worker.start_link(arg)
       # {Contacts.Worker, arg},
+      # Start to serve requests, typically the last entry
+      ContactsWeb.Endpoint
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -22,6 +22,17 @@ defmodule ContactsWeb.Router do
     end
   end
 
+  # Enable LiveDashboard in development
+  if Application.compile_env(:contacts, :dev_routes) do
+    import Phoenix.LiveDashboard.Router
+
+    scope "/dev" do
+      pipe_through :browser
+
+      live_dashboard "/dashboard", metrics: ContactsWeb.Telemetry
+    end
+  end
+
   scope "/", ContactsWeb do
     pipe_through :browser
 

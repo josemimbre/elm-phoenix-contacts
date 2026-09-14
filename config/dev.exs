@@ -1,5 +1,8 @@
 import Config
 
+# Enable dev-only routes, such as the LiveDashboard, in the router
+config :contacts, dev_routes: true
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
