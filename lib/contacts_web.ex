@@ -22,7 +22,7 @@ defmodule ContactsWeb do
       use Phoenix.Controller, formats: [html: "HTML", json: "JSON"]
 
       import Plug.Conn
-      import ContactsWeb.Gettext
+      use Gettext, backend: ContactsWeb.Gettext
       alias ContactsWeb.Router.Helpers, as: Routes
     end
   end
@@ -49,14 +49,14 @@ defmodule ContactsWeb do
   def channel do
     quote do
       use Phoenix.Channel
-      import ContactsWeb.Gettext
+      use Gettext, backend: ContactsWeb.Gettext
     end
   end
 
   defp html_helpers do
     quote do
       import Phoenix.HTML
-      import ContactsWeb.Gettext
+      use Gettext, backend: ContactsWeb.Gettext
       alias ContactsWeb.Layouts
       alias ContactsWeb.Router.Helpers, as: Routes
     end

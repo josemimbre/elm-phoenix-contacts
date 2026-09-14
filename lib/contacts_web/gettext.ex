@@ -20,5 +20,5 @@ defmodule ContactsWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :contacts
+  use Gettext.Backend, otp_app: :contacts
 end
