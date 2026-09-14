@@ -7,15 +7,19 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    container:
-      image: elixir:1.20.4-otp-29-slim
     services:
       database:
         image: mysql:8
         env:
           MYSQL_ROOT_PASSWORD: my-secret-pw
+        ports:
+          - 3306:3306
     steps:
     - uses: actions/checkout@v7
+    - uses: erlef/setup-beam@v1
+      with:
+        otp-version: '29.0'
+        elixir-version: '1.20.4'
     - uses: actions/setup-node@v4
       with:
         node-version: '26'
