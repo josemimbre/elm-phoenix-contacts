@@ -11,11 +11,11 @@ jobs:
       image: elixir:1.13.4-slim
     services:
       database:
-        image: mysql
+        image: mysql:8
         env:
           MYSQL_ROOT_PASSWORD: my-secret-pw
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v7
     - name: Install Dependencies
       run: |
         mix local.rebar --force
