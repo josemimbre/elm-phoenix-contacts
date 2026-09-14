@@ -54,8 +54,7 @@ config :contacts, ContactsWeb.Endpoint,
     patterns: [
       ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
       ~r{priv/gettext/.*(po)$},
-      ~r{lib/contacts_web/views/.*(ex)$},
-      ~r{lib/contacts_web/templates/.*(eex)$}
+      ~r{lib/contacts_web/(controllers|components)/.*(ex|heex)$}
     ]
   ]
 
